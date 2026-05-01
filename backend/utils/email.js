@@ -1,4 +1,4 @@
-import e from 'express';
+import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 dotenv.config();
 
@@ -27,7 +27,7 @@ transporter.verify((err) => {
 async function sendEmailOTP(to, otp) {
     try {
         const info = await transporter.sendMail({
-            from: EMAIL_FROM,
+            from: EMAIL_USER,
             to,
             subject: 'Your OTP Code',
             text: `Your OTP is: ${otp}\n\nIt expires in 5 minutes. Do not share it.`,

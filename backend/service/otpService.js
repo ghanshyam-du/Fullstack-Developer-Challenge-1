@@ -34,27 +34,21 @@ const otpService = {
 
         if (record.otp !== submittedOtp) {
             otpModels.incrementAttempts(identifier);
-            const attemptsLeft = max_attempts - otpModels.get(identifier).attempts;
+            const updatedRecord = otpModels.get(identifier);
+            const attemptsLeft = max_attempts - updatedRecord.attempts;
 
             if (attemptsLeft <= 0) {
-                const blockedUntil = Date.now() + block_duration;
-                const updatedRecord = otpModels.get(identifier);
-                const remaining = max_attempts - updatedRecord.attempts;
-
-                if (updatedRecord.attempts >= max_attempts) {
-                    otpModels.blockUser(identifier, Date.now() + block_duration);
-                    return { success: false, message: 'Too many wrong attempts. Blocked for 10 minutes.' };
-                }
-
-                return { success: false, message: `Invalid OTP. ${remaining} attempt(s) remaining.` };
+                otpModels.blockUser(identifier, Date.now() + block_duration);
+                return { success: false, message: 'Too many wrong attempts. Blocked for 10 minutes.' };
             }
 
-            const token = uuidv4();
-            otpModels.saveSession(token, identifier);
-            otpModels.delete(identifier);
-            return { success: true, message: 'OTP verified successfully.', token };
-
+            return { success: false, message: `Invalid OTP. ${attemptsLeft} attempt(s) remaining.` };
         }
+
+        const token = uuidv4();
+        otpModels.saveSession(token, identifier);
+        otpModels.delete(identifier);
+        return { success: true, message: 'OTP verified successfully.', token };
     },
     getSessionUser(token) {
         return otpModels.getSession(token);

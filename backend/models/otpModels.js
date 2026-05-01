@@ -1,5 +1,5 @@
 const otpStore = {};
-const sessionStorage = {};
+const sessionStore = {};
 
 const otpModels = {
     save(identifier, data) {

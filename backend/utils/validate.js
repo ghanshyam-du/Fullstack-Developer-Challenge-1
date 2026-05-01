@@ -15,4 +15,4 @@ function isValidOTP(otp) {
   return /^\d{6}$/.test(String(otp).trim());
 }
 
-export default { isValidEmail, isValidPhone, isValidOTP };
+export { isValidEmail, isValidPhone, isValidOTP };

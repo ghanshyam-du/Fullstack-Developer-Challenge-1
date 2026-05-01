@@ -1,7 +1,7 @@
 import otpService from "../service/otpService.js";
 import sendEmailOTP from "../utils/email.js";
 import sendSmsOTP from "../utils/sms.js";
-import { isValidEmail, isValidPhone, isValidOTP } from '../utils/validators.js';
+import { isValidEmail, isValidPhone, isValidOTP } from '../utils/validate.js';
 
 
 const authController = {
@@ -57,7 +57,7 @@ const authController = {
                 return res.status(400).json({ success: false, message: 'OTP must be exactly 6 digits.' });
             }
 
-            const result = OTPService.verifyOTP(identifier, otp);
+            const result = otpService.verifyOtp(identifier, otp);
 
             if (!result.success) {
                 return res.status(400).json({ success: false, message: result.message });
