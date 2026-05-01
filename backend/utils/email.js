@@ -1,3 +1,4 @@
+import e from 'express';
 import nodemailer from 'nodemailer';
 dotenv.config();
 
@@ -39,3 +40,4 @@ async function sendEmailOTP(to, otp) {
         return { success: false, error: err.message };
     }
 }
+export default { sendEmailOTP };
