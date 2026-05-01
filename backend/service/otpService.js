@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import otpModels from '../models/otpModels';
+import otpModels from '../models/otpModels.js';
 
 const otp_expiry_time = 5 * 60 * 1000;
 const max_attempts = 3;

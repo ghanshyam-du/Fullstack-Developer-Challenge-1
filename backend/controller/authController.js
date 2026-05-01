@@ -1,7 +1,7 @@
-import otpService from "../service/otpService";
-import sendEmailOTP from "../utils/email";
-import sendSmsOTP from "../utils/sms";
-import { isValidEmail, isValidPhone, isValidOTP } from ('../utils/validators');
+import otpService from "../service/otpService.js";
+import sendEmailOTP from "../utils/email.js";
+import sendSmsOTP from "../utils/sms.js";
+import { isValidEmail, isValidPhone, isValidOTP } from '../utils/validators.js';
 
 
 const authController = {
@@ -25,7 +25,7 @@ const authController = {
                 return res.status(400).json({ success: false, message: 'type must be "email" or "phone".' });
             }
 
-            const otp = OTPService.createOTP(identifier);
+            const otp = otpService.createOtp(identifier);
 
             let sendResult;
             if (type === 'email') {
